@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.albpower.samiyusuf"
+        versionCode = "1"
+        version   = "1.0.0">
+
+    <name>Sami Yusuf Ilahi</name>
+    <description>
+        Ilahi nga Sami Yusuf
+    </description>
+	
+    <author email="afrim.a@msn.com" href="http://afrimazizi.tk">
+        Afrim Azizi
+    </author>
+
+	<preference name="phonegap-version"           value="3.7.0" />          <!-- all: current version of PhoneGap -->
+	
+	
+	<!-- Define app icon for each platform. -->
+    <icon src="icon.png" />
+	
+    <content src="index.html" />
+    <access origin="*" />
+</widget>
