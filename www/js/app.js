@@ -5,8 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('starter', ['ionic'])
 
-app.config(function($stateProvider, $urlRouterProvider) {
-	$stateProvider.state('home', {
+app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    
+$ionicConfigProvider.tabs.position('bottom');    
+
+$stateProvider.state('home', {
   url: '/home',
   views: {
     home: {
@@ -15,22 +18,23 @@ app.config(function($stateProvider, $urlRouterProvider) {
   }
 })
 
-$stateProvider.state('help', {
-  url: '/help',
+$stateProvider.state('playlist', {
+  url: '/playlist',
   views: {
-    help: {
-      templateUrl: 'help.html'
+    playlist: {
+      templateUrl: 'playlist.html'
     }
   }
 })
 
-$stateProvider.state('featured',{
-	url:'/featured',
-	views:{
-		featured:{
-			templateUrl: 'featured.html'
-		}
-	}
+
+$stateProvider.state('now-playing',{
+    url:'/now-playing',
+    views:{
+        nowplaying:{
+            templateUrl:'now-playing.html'
+        }
+    }
 })
 
 })
@@ -49,7 +53,7 @@ $stateProvider.state('featured',{
 })
 
 .controller('ListaCtrl',function($scope,$http){
-	$http.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLueTNPnrNvSHjlZcJb4-Yt6LXUwa53M_p&key=AIzaSyDhDZjburmzpaoH39Uj4dnU6X_GRLbCVW0').then(function(resp) {
+	$http.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PL97C2D4AAC980FDD7&key=AIzaSyDhDZjburmzpaoH39Uj4dnU6X_GRLbCVW0').then(function(resp) {
     console.log('Success', resp);
 	$scope.items = resp.data.items;
     $scope.playvideo = function(id){
@@ -62,5 +66,6 @@ $stateProvider.state('featured',{
   }, function(err) {
     console.error('ERR', err);
     // err.status will contain the status code
+        //PLueTNPnrNvSHjlZcJb4-Yt6LXUwa53M_p
   })
 })
