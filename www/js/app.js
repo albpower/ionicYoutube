@@ -53,7 +53,7 @@ $stateProvider.state('now-playing',{
 })
 
 .controller('ListaCtrl',function($scope,$http){
-	$http.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PL97C2D4AAC980FDD7&key=AIzaSyDhDZjburmzpaoH39Uj4dnU6X_GRLbCVW0').then(function(resp) {
+	$http.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PL97C2D4AAC980FDD7&maxResults=30&key=AIzaSyDhDZjburmzpaoH39Uj4dnU6X_GRLbCVW0').then(function(resp) {
     console.log('Success', resp);
 	$scope.items = resp.data.items;
     $scope.playvideo = function(id){
