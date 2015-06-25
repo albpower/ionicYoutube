@@ -67,10 +67,6 @@ $stateProvider.state('now-playing',{
             window.plugins.socialsharing.shareViaFacebook('Duke shikuar: ' + title + 'http://www.youtube.com/watch?v=' + id, null /* img */, null /* url */);
             //$cordovaSocialSharing.shareViaFacebook('Duke shikuar: ' , title, null, 'http://www.youtube.com/watch?v=' + id);
         }
-        
-        $scope.visitOut = function(url){
-            navigator.app.loadUrl(url, {openExternal:true});
-        }
     }
    // console.log("VideoID: " + id);
     
