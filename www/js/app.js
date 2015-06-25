@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic'])
+var app = angular.module('starter', ['ionic','ngCordova'])
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     
@@ -53,19 +53,26 @@ $stateProvider.state('now-playing',{
 })
 
 .controller('ListaCtrl',function($scope,$http){
-	$http.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PL97C2D4AAC980FDD7&maxResults=30&key=AIzaSyDhDZjburmzpaoH39Uj4dnU6X_GRLbCVW0').then(function(resp) {
+	$http.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLvM3GnVT0LjZkRgW7jHIxZpSppuwzmUZy&maxResults=40&key=AIzaSyDhDZjburmzpaoH39Uj4dnU6X_GRLbCVW0').then(function(resp) {
     console.log('Success', resp);
 	$scope.items = resp.data.items;
-    $scope.playvideo = function(id){
+        
+    $scope.playvideo = function(id,title){
         document.getElementById("video-player").innerHTML = '<iframe src="http://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen class="yt-playeri"></iframe>';
-        console.log("VideoID: " + id);
-       
+        document.getElementById("now-playing").innerHTML = 'Duke shikuar: ' + title;
+        
+        $scope.shareAnywhere = function() {
+            console.log("Shared: ID: " + id + " title: " + title);
+            $cordovaSocialSharing.share('Duke shikuar: ' , title, 'null', 'http://www.youtube.com/watch?v=' + id);
+        }
     }
-            
-    // For JSON responses, resp.data contains the result
+   // console.log("VideoID: " + id);
+    
+        // For JSON responses, resp.data contains the result
   }, function(err) {
     console.error('ERR', err);
     // err.status will contain the status code
-        //PLueTNPnrNvSHjlZcJb4-Yt6LXUwa53M_p
+        //PLueTNPnrNvSHjlZcJb4-Yt6LXUwa53M_p - Sami Yusuf
+        //PL97C2D4AAC980FDD7 Ilahi
   })
 })

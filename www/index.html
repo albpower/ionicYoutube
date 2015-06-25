@@ -16,22 +16,22 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
+    <script src="js/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/app.js"></script>
       
   </head>
-  <body ng-app="starter" >
+  <body ng-app="starter" ng-controller="ListaCtrl" >
    <ion-tabs class="tabs-light tabs-icon-top">
-    <ion-tab icon="ion-home" title="Home" ui-sref="home"> 
+    <ion-tab icon="ion-home" title="Fillimi" ui-sref="home"> 
        <ion-nav-view name="home"></ion-nav-view>
     </ion-tab>
-    <ion-tab icon="ion-navicon" title="Playlist" ui-sref="playlist">
+    <ion-tab icon="ion-navicon" title="Lista" ui-sref="playlist">
        <ion-nav-view name="playlist"></ion-nav-view>
     </ion-tab>
-	<ion-tab icon="ion-radio-waves" title="Now Playing" ui-sref="now-playing">
+	<ion-tab icon="ion-radio-waves" title="Duke Shikuar" ui-sref="now-playing">
 		<ion-nav-view name="nowplaying"></ion-nav-view>
 	</ion-tab>
   </ion-tabs>
@@ -39,8 +39,13 @@
 	<script type="text/ng-template" id="home.html">
 	  <ion-view title="Home">
 		<ion-content padding="true">
-		  <h2>Home Page</h2>
-		  <p>Channel: AlbPowerONLLINE <br> Youtube Playlists with nasheeds</p>
+		  <img src="img/elif.png" style="width:50%; margin:0 auto; display:block"/><br>
+            <div style="text-align:center" class="padding">
+                Mësimi më i lehtë i shkronjave të Kuranit përmes emisionit "Elif" në Peace TV me hoxhën Qemail Sopi dhe fëmijët. Emisioni është produkt i PeaceTv Shqip ndërsa përshtatja e saj për aplikacionin u bë nga Afrim Azizi.<br>
+                <a href="http://facebook.com/afrimaz" target="_blank" class="padding" style="text-decoration:none; color:#333;">Kontakt - Afrim Azizi</a>
+                <a href="http://www.qsi-ks.com/webi/peacetv.php" target="_blank" class="padding" style="text-decoration:none; color:#333;">Kontakt - PeaceTv Shqip</a>
+            </div>
+            
 		</ion-content>
 	  </ion-view>
 	</script>
@@ -49,19 +54,20 @@
 	  <ion-view title="Video Playlist">
 	   <div class="bar bar-header bar-light">
 		  <button class="button button-icon icon ion-home" ui-sref="home"></button>
-		  <div class="h1 title">Video Playlist </div>
+		  <div class="h1 title">Lista e emisioneve </div>
 		  
 		</div>
-		<ion-content padding="true" class="has-header" ng-controller="ListaCtrl">
+		<ion-content padding="true" class="has-header" >
 			   <label class="item item-input">
 				<i class="icon ion-search placeholder-icon"></i>
 				<input type="text" placeholder="Search..." ng-model="query.snippet.title">
 			</label>
 		   <ion-list>
-		   <ion-item class="item-thumbnail-left item-text-wrap" ui-sref="now-playing" ng-repeat="item in items | filter:query "  class="item-thumbnail-left" ng-click="playvideo('{{item.snippet.resourceId.videoId}}')">
+		   <ion-item class="item-thumbnail-left item-text-wrap" ui-sref="now-playing" ng-repeat="item in items | filter:query "  class="item-thumbnail-left" ng-click="playvideo(item.snippet.resourceId.videoId,item.snippet.title)">
 				<img ng-src="{{item.snippet.thumbnails.high.url}}"/>
 				<h2>{{item.snippet.title}}</h2>
-				<p>Publikuar me: {{item.snippet.publishedAt | date }}  ID: {{item.snippet.resourceId.videoId}}</p>
+				<p>Publikuar më: {{item.snippet.publishedAt | date }} </p>
+                
 		   </ion-item>
 		   </ion-list>
 		  
@@ -70,14 +76,15 @@
 	</script>
 	
 	<script type="text/ng-template" id="now-playing.html">
-          <ion-view title="Now Playing">
+          <ion-view title="Now playing">
           <div class="bar bar-header bar-light">
               <button class="button button-icon icon ion-navicon" ui-sref="playlist"></button>
-              <div class="h1 title">Now playing </div>
-
+              <div class="h1 title" id="now-playing">Duke shikuar </div>
+              <button class="button button-icon icon ion-share" ng-click="shareAnywhere()">Shpërndaj</button>
             </div>
             <ion-content class="has-header" padding="true">
               <div id="video-player" class="yt-player-wrapper"></div>
+              
             </ion-content>
           </ion-view>
       </script>

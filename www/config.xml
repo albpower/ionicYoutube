@@ -3,13 +3,13 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.albpower.samiyusuf"
+        id        = "com.albpower.elif"
         versionCode = "1"
         version   = "1.0.0">
 
-    <name>Sami Yusuf Ilahi</name>
+    <name>Elif - Mesojme shkronjat e Kur'anit</name>
     <description>
-        Ilahi nga Sami Yusuf
+        Elif - Mesojme shkronjat e Kur'anit
     </description>
 	
     <author email="afrim.a@msn.com" href="http://afrimazizi.tk">
@@ -19,6 +19,9 @@
 	<preference name="phonegap-version"           value="3.7.0" />          <!-- all: current version of PhoneGap -->
 	
 	
+    <!-- Plugins -->
+    <gap:plugin name="nl.x-services.plugins.socialsharing" source="plugins.cordova.io" />
+    
 	<!-- Define app icon for each platform. -->
     <icon src="icon.png" />
 	
