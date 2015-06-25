@@ -49,6 +49,29 @@ $stateProvider.state('now-playing',{
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+    handleExternalURLs();
+    //URL handlers
+
+      function handleExternalURLs() {
+    // Handle click events for all external URLs
+    if (device.platform.toUpperCase() === 'ANDROID') {
+        $(document).on('click', 'a[href^="http"]', function (e) {
+            var url = $(this).attr('href');
+            navigator.app.loadUrl(url, { openExternal: true });
+            e.preventDefault();
+        });
+    }
+    else if (device.platform.toUpperCase() === 'IOS') {
+        $(document).on('click', 'a[href^="http"]', function (e) {
+            var url = $(this).attr('href');
+            window.open(url, '_system');
+            e.preventDefault();
+        });
+    }
+    else {
+        // Leave standard behaviour
+    }
+}
   });
 })
 
@@ -59,11 +82,11 @@ $stateProvider.state('now-playing',{
         
     $scope.playvideo = function(id,title){
         document.getElementById("video-player").innerHTML = '<iframe src="http://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen class="yt-playeri"></iframe>';
-        document.getElementById("now-playing").innerHTML = 'Duke shikuar: ' + title;
+        document.getElementById("now-playing").innerHTML = title;
         
         $scope.shareAnywhere = function() {
             console.log("Shared: ID: " + id + " title: " + title);
-            $cordovaSocialSharing.share('Duke shikuar: ' , title, 'null', 'http://www.youtube.com/watch?v=' + id);
+            $cordovaSocialSharing.shareViaFacebook('Duke shikuar: ' , title, null, 'http://www.youtube.com/watch?v=' + id);
         }
     }
    // console.log("VideoID: " + id);

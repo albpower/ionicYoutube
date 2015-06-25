@@ -79,11 +79,14 @@
           <ion-view title="Now playing">
           <div class="bar bar-header bar-light">
               <button class="button button-icon icon ion-navicon" ui-sref="playlist"></button>
-              <div class="h1 title" id="now-playing">Duke shikuar </div>
-              <button class="button button-icon icon ion-share" ng-click="shareAnywhere()">Shpërndaj</button>
-            </div>
-            <ion-content class="has-header" padding="true">
-              <div id="video-player" class="yt-player-wrapper"></div>
+              <div class="h1 title item-text-wrap">Duke shikuar </div>
+              <button class="button button-icon icon ion-share icon-right" ng-click="shareAnywhere()"></button>
+          </div>
+              <div class="bar bar-subheader bar-light">
+              <div class="h4 item item-text-wrap text-center" id="now-playing"></div>
+              </div>
+            <ion-content class="has-subheader" padding="true">
+              <div id="video-player" class="yt-player-wrapper padding"></div>
               
             </ion-content>
           </ion-view>
