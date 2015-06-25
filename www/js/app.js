@@ -49,29 +49,7 @@ $stateProvider.state('now-playing',{
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-    handleExternalURLs();
-    //URL handlers
-
-      function handleExternalURLs() {
-    // Handle click events for all external URLs
-    if (device.platform.toUpperCase() === 'ANDROID') {
-        $(document).on('click', 'a[href^="http"]', function (e) {
-            var url = $(this).attr('href');
-            navigator.app.loadUrl(url, { openExternal: true });
-            e.preventDefault();
-        });
-    }
-    else if (device.platform.toUpperCase() === 'IOS') {
-        $(document).on('click', 'a[href^="http"]', function (e) {
-            var url = $(this).attr('href');
-            window.open(url, '_system');
-            e.preventDefault();
-        });
-    }
-    else {
-        // Leave standard behaviour
-    }
-}
+    
   });
 })
 
@@ -86,7 +64,12 @@ $stateProvider.state('now-playing',{
         
         $scope.shareAnywhere = function() {
             console.log("Shared: ID: " + id + " title: " + title);
-            $cordovaSocialSharing.shareViaFacebook('Duke shikuar: ' , title, null, 'http://www.youtube.com/watch?v=' + id);
+            window.plugins.socialsharing.shareViaFacebook('Duke shikuar: ' , title, null, 'http://www.youtube.com/watch?v=' + id);
+            //$cordovaSocialSharing.shareViaFacebook('Duke shikuar: ' , title, null, 'http://www.youtube.com/watch?v=' + id);
+        }
+        
+        $scope.visitOut = function(url){
+            navigator.app.loadUrl(url, {openExternal:true});
         }
     }
    // console.log("VideoID: " + id);
