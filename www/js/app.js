@@ -7,7 +7,8 @@ var app = angular.module('starter', ['ionic', 'ngCordova']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     
-$ionicConfigProvider.tabs.position('bottom');    
+$ionicConfigProvider.tabs.position('bottom');
+$ionicConfigProvider.views.maxCache(0);
 
 $stateProvider.state('home', {
   url: '/home',
@@ -29,10 +30,11 @@ $stateProvider.state('playlist', {
 
 
 $stateProvider.state('now-playing',{
-    url:'/now-playing',
+    url:'/now-playing/:id/:title',
     views:{
         nowplaying:{
-            templateUrl:'now-playing.html'
+            templateUrl: 'now-playing.html',
+            controller: 'nowPlayingCtrl'
         }
     }
 })
@@ -53,20 +55,15 @@ $stateProvider.state('now-playing',{
   });
 })
 
-.controller('ListaCtrl',function($scope,$http){
+.controller('ListaCtrl',function($scope,$http,$state){
 	$http.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PLvM3GnVT0LjZkRgW7jHIxZpSppuwzmUZy&maxResults=40&key=AIzaSyDhDZjburmzpaoH39Uj4dnU6X_GRLbCVW0').then(function(resp) {
     console.log('Success', resp);
-	$scope.items = resp.data.items;
-        
+ 	$scope.items = resp.data.items;
+           
     $scope.playvideo = function(id,title){
-        document.getElementById("video-player").innerHTML = '<iframe src="http://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen class="yt-playeri"></iframe>';
-        document.getElementById("now-playing").innerHTML = title;
+        $state.go('now-playing',{id:id,title:title});
+       //SocialShare function
         
-        $scope.shareAnywhere = function() {
-            console.log("Shared: ID: " + id + " title: " + title);
-            window.plugins.socialsharing.shareViaFacebook('Duke shikuar: ' + title + 'http://www.youtube.com/watch?v=' + id, null /* img */, null /* url */);
-            //$cordovaSocialSharing.shareViaFacebook('Duke shikuar: ' , title, null, 'http://www.youtube.com/watch?v=' + id);
-        }
     }
    // console.log("VideoID: " + id);
     
@@ -77,4 +74,19 @@ $stateProvider.state('now-playing',{
         //PLueTNPnrNvSHjlZcJb4-Yt6LXUwa53M_p - Sami Yusuf
         //PL97C2D4AAC980FDD7 Ilahi
   })
+})
+
+.controller('nowPlayingCtrl',function ($scope, $http, $stateParams){
+    $scope.videoId = $stateParams.id;
+    $scope.videoTitle = $stateParams.title;
+    console.log('videoID: '+ $scope.videoId);
+    
+    document.getElementById("video-player").innerHTML = '<iframe src="http://www.youtube.com/embed/' + $scope.videoId + '" frameborder="0" allowfullscreen class="yt-playeri"></iframe>';
+    document.getElementById("now-playing").innerHTML = $scope.videoTitle;
+    
+    $scope.shareAnywhere = function() {
+    console.log("Shared: ID: " + $scope.videoId + " title: " + $scope.videoTitle);
+    window.plugins.socialsharing.shareViaFacebook('Duke shikuar: ' + $scope.videoTitle + 'http://www.youtube.com/watch?v=' + $scope.videoId, null /* img */, null /* url */);
+    //$cordovaSocialSharing.shareViaFacebook('Duke shikuar: ' , title, null, 'http://www.youtube.com/watch?v=' + id);
+   }
 })

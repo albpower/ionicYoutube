@@ -23,7 +23,7 @@
     <script src="js/app.js"></script>
       
   </head>
-  <body ng-app="starter" ng-controller="ListaCtrl" >
+  <body ng-app="starter" ng-controller="ListaCtrl">
    <ion-tabs class="tabs-light tabs-icon-top">
     <ion-tab icon="ion-home" title="Fillimi" ui-sref="home"> 
        <ion-nav-view name="home"></ion-nav-view>
@@ -43,8 +43,7 @@
             <div style="text-align:center" class="padding">
                 Mësimi më i lehtë i shkronjave të Kuranit përmes emisionit "Elif" në Peace TV me hoxhën Qemail Sopi dhe fëmijët. Emisioni është produkt i PeaceTv Shqip ndërsa përshtatja e saj për aplikacionin u bë nga Afrim Azizi.<br>
                 <a onclick="window.open('http://facebook.com/afrimaz','_system','location=yes')" class="button icon-left ion-chevron-right button-clear button-dark" style="text-decoration:none; color:#222;">Vizito - Afrim A.</a><br>
-                <a onclick="window.open('http://www.qsi-ks.com/webi/peacetv.php','_system','location=yes')" class="button icon-left ion-chevron-right button-clear button-dark" style="text-decoration:none; color:#222;">Vizito - PeaceTv AL</a>
-            </div>
+           </div>
             
 		</ion-content>
 	  </ion-view>
@@ -60,10 +59,14 @@
 		<ion-content padding="true" class="has-header" >
 			   <label class="item item-input">
 				<i class="icon ion-search placeholder-icon"></i>
-				<input type="text" placeholder="Kërko..." ng-model="query.snippet.title">
-			</label>
+				<input type="text" placeholder="Title..." ng-model="query.title"><br>
+             </label>
+            <label class="item item-input">
+				<i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Published..." ng-model="query.published">
+            </label>
 		   <ion-list>
-		   <ion-item class="item-thumbnail-left item-text-wrap" ui-sref="now-playing" ng-repeat="item in items | filter:query "  class="item-thumbnail-left" ng-click="playvideo(item.snippet.resourceId.videoId,item.snippet.title)">
+		   <ion-item class="item-thumbnail-left item-text-wrap" ng-repeat="item in items | filter:{title: query.title, publishedAt: query.published}"  class="item-thumbnail-left" ng-click="playvideo(item.snippet.resourceId.videoId,item.snippet.title)">
 				<img ng-src="{{item.snippet.thumbnails.high.url}}"/>
 				<h2>{{item.snippet.title}}</h2>
 				<p>Publikuar më: {{item.snippet.publishedAt | date }} </p>
