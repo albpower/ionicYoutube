@@ -22,7 +22,7 @@
     <!-- Plugins -->
    <!-- <gap:plugin name="nl.x-services.plugins.socialsharing" source="plugins.cordova.io" /> -->
    <gap:plugin name="cordova-plugin-inappbrowser" spec="1.6.1" source="npm" />
-    <gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
+   
     
 	<!-- Define app icon for each platform. -->
     <icon src="icon.png" />
